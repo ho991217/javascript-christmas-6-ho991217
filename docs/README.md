@@ -136,7 +136,7 @@
 
 ## 🎯 프로그래밍 요구사항
 
-- [ ] `Node.js 18.17.1` 환경에서 실행 가능해야한다.
+- [x] `Node.js 18.17.1` 환경에서 실행 가능해야한다.
 - [ ] 1. `package.json` 파일을 변경하지 않고 작성하였는가?
 - [ ] 2. [JavaScript 코드 컨벤션](https://github.com/ho991217/javascript-christmas-6-ho991217#:~:text=JS%EB%A1%9C%EB%A7%8C%20%EA%B5%AC%ED%98%84%ED%95%9C%EB%8B%A4.-,JavaScript%20%EC%BD%94%EB%93%9C%20%EC%BB%A8%EB%B2%A4%EC%85%98,-%EC%9D%84%20%EC%A7%80%ED%82%A4%EB%A9%B4%EC%84%9C%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)을 지키면서 프로그래밍 하였는가?
 - [ ] 3. `process.exit()`를 호출하지 않았는가?
