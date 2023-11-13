@@ -13,13 +13,16 @@ class InputController {
   }
 
   /**
+   * 사용자로부터 방문 예정일을 입력받고
+   *
+   * 유효성을 검사하는 메소드
    * @returns {Promise<string>}
    */
   inputExpectedDateOfVisit = async () => {
-    const input = await this.#inputView.readDate();
-    const date = this.#inputService.validate(input, 'date');
+    const userInput = await this.#inputView.readDate();
+    const validDate = this.#inputService.validate(userInput, 'date');
 
-    return date;
+    return validDate;
   };
 }
 

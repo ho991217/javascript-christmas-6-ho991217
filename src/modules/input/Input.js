@@ -1,6 +1,6 @@
-import InputController from './InputController.js';
 import InputModel from './InputModel.js';
 import InputView from './InputView.js';
+import InputController from './InputController.js';
 import InputService from './InputService.js';
 
 const inputService = new InputService(InputModel);
