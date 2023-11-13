@@ -2,6 +2,10 @@ import ERROR_MESSAGE from '../../constants/error.js';
 import { DATE_RANGE } from '../../constants/number.js';
 import InputError from '../../exceptions/InputError.js';
 
+/**
+ * @typedef {import('./InputModel.js').InputModel} InputModel
+ */
+
 class InputService {
   #inputModel;
 
@@ -13,10 +17,13 @@ class InputService {
   }
 
   /**
-   * 유효성 검사를 수행하는 메소드
+   * 사용자의 입력을 검증하는 메소드
+   *
+   * @method
+   * @name validate
    * @param {string} input
    * @param {'date' | 'menu'} type
-   * @returns {string | null}
+   * @returns {string}
    */
   validate(input, type) {
     if (this.#inputModel.isEmpty(input)) {
@@ -34,7 +41,11 @@ class InputService {
   }
 
   /**
-   * 사용자로부터 입력받은 방문 예정일을 검사하는 메소드
+   * 사용자로부터 입력받은 방문예정일을 검사하는 메소드
+   *
+   * @private
+   * @method
+   * @name #validateDateInput
    * @param {string} input
    * @returns {string}
    */
@@ -51,6 +62,10 @@ class InputService {
 
   /**
    * 사용자로부터 입력받은 메뉴를 검사하는 메소드
+   *
+   * @private
+   * @method
+   * @name #validateMenuInput
    * @param {string} input
    * @returns {string}
    */

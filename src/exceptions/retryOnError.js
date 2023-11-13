@@ -3,9 +3,11 @@ import CustomError from './CustomError.js';
 import ERROR_MESSAGE from '../constants/error.js';
 
 /**
- * @param {Function} fn
+ * @typedef {Function} RetryOnError
+ * @type {RetryOnError}
+ * @param {Function<T>} fn
  * @param {number} retriesLeft
- * @returns {Promise<any>}
+ * @returns {Promise<T>}
  */
 async function retryOnError(fn, retriesLeft = 5) {
   try {

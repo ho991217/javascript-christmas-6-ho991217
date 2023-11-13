@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('./InputService').InputService} InputService
+ * @typedef {import('./InputView').InputView} InputView
+ */
+
 class InputController {
   #inputView;
 
@@ -13,10 +18,11 @@ class InputController {
   }
 
   /**
-   * 사용자로부터 방문 예정일을 입력받고
+   * 사용자로부터 방문예정일을 입력받는 메소드
    *
-   * 유효성을 검사하는 메소드
-   * @returns {Promise<string>}
+   * @method
+   * @name inputExpectedDateOfVisit
+   * @returns {string}
    */
   inputExpectedDateOfVisit = async () => {
     const userInput = await this.#inputView.readDate();
@@ -26,10 +32,11 @@ class InputController {
   };
 
   /**
-   * 사용자로부터 메뉴를 입력받고
+   * 사용자로부터 메뉴를 입력받는 메소드
    *
-   * 유효성을 검사하는 메소드
-   * @returns {Promise<string>}
+   * @method
+   * @name inputMenu
+   * @returns {string}
    */
   inputMenu = async () => {
     const userInput = await this.#inputView.readMenu();
