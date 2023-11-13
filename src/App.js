@@ -4,8 +4,11 @@ import retryOnError from './exceptions/retryOnError.js';
 class App {
   // eslint-disable-next-line class-methods-use-this
   async run() {
-    const date = await retryOnError(Input.inputExpectedDateOfVisit);
-    console.log(date);
+    const expectedVisitingDate = await retryOnError(Input.inputExpectedDateOfVisit);
+    const menu = await retryOnError(Input.inputMenu);
+
+    console.log(expectedVisitingDate);
+    console.log(menu);
   }
 }
 

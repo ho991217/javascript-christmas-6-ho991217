@@ -19,13 +19,17 @@ class InputService {
    * @returns {string | null}
    */
   validate(input, type) {
+    if (this.#inputModel.isEmpty(input)) {
+      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
+    }
+
     switch (type) {
       case 'date':
         return this.#validateDateInput(input);
       case 'menu':
-        return null;
+        return this.#validateMenuInput(input);
       default:
-        return null;
+        return '';
     }
   }
 
@@ -35,10 +39,6 @@ class InputService {
    * @returns {string}
    */
   #validateDateInput(input) {
-    if (this.#inputModel.isEmpty(input)) {
-      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
-    }
-
     if (
       !this.#inputModel.isPositiveInteger(input) ||
       !this.#inputModel.isInRange(input, DATE_RANGE)
@@ -46,6 +46,16 @@ class InputService {
       throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
 
+    return input;
+  }
+
+  /**
+   * 사용자로부터 입력받은 메뉴를 검사하는 메소드
+   * @param {string} input
+   * @returns {string}
+   */
+  #validateMenuInput(input) {
+    // TODO: 메뉴 입력 유효성 검사
     return input;
   }
 }
