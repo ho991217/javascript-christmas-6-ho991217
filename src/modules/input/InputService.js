@@ -1,5 +1,5 @@
 import ERROR_MESSAGE from '../../constants/error.js';
-import CustomError from '../error/CustomError.js';
+import InputError from '../../exceptions/InputError.js';
 
 class InputService {
   #inputModel;
@@ -26,10 +26,10 @@ class InputService {
 
   #validateDateInput(input) {
     if (this.#inputModel.isEmpty(input)) {
-      throw new CustomError(ERROR_MESSAGE.EMPTY_INPUT);
+      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
     }
     if (!this.#inputModel.isPositiveInteger(input)) {
-      throw new CustomError('Input must be an integer.');
+      throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
 
     return input;
