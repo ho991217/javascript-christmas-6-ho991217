@@ -60,6 +60,14 @@ class EventService {
 
     return totalBenfitPrice;
   }
+
+  getTotalPriceAfterDiscount() {
+    const totalPriceBeforeDiscount = this.#orderModel.getTotalPrice();
+    const totalBenfitPrice = this.getTotalBenfitPrice();
+    const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenfitPrice;
+
+    return totalPriceAfterDiscount;
+  }
 }
 
 export default EventService;

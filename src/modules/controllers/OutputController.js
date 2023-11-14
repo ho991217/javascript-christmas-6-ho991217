@@ -33,6 +33,7 @@ class OutputController {
     this.#showGift();
     this.#showBenfitList();
     this.#showTotalBenfitPrice();
+    this.#showTotalPriceAfterDiscount();
   }
 
   greetCustomer() {
@@ -68,6 +69,17 @@ class OutputController {
   #showTotalBenfitPrice() {
     const totalBenfitPrice = this.#eventService.getTotalBenfitPrice();
     this.#outputView.printWithTitle('총혜택 금액', Format.money(-totalBenfitPrice));
+  }
+
+  #showTotalPriceAfterDiscount() {
+    const totalPriceBeforeDiscount = this.#outputService.getTotalPriceBeforeDiscount();
+    const totalBenfitPrice = this.#eventService
+      .getBenfitList()
+      .filter(([event]) => event !== '증정 이벤트')
+      .reduce((total, [, price]) => total + price, 0);
+    const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenfitPrice;
+
+    this.#outputView.printWithTitle('할인 후 총주문 금액', Format.money(totalPriceAfterDiscount));
   }
 }
 
