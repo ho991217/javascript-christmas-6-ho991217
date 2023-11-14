@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import PROMPT from '../../constants/index.js';
+import { PROMPT } from '../../constants/index.js';
 
 /**
  * @typedef {Object} InputView

@@ -1,4 +1,4 @@
-import REGEX from '../../constants/index.js';
+import { REGEX } from '../../constants/index.js';
 
 /**
  * @typedef {import('../models/MenuModel.js').MenuModel} MenuModel

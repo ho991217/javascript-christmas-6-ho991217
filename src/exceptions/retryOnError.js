@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import CustomError from './CustomError.js';
-import ERROR_MESSAGE from '../constants/index.js';
+import { ERROR_MESSAGE } from '../constants/index.js';
 
 /**
  * Custom 에러 혹은 그 상속자 에러가 발생했을때,
