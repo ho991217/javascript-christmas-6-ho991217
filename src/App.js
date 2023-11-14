@@ -9,13 +9,9 @@ class App {
 
   #outputController;
 
-  #expectedVisitingDate;
-
-  #menu;
-
   constructor() {
     const inputService = new InputService(DateModel, OrderModel, MenuModel);
-    const outputService = new OutputService();
+    const outputService = new OutputService(DateModel, OrderModel, MenuModel);
 
     this.#inputController = new InputController(inputService, InputView);
     this.#outputController = new OutputController(outputService, OutputView);
@@ -23,12 +19,17 @@ class App {
 
   async run() {
     await this.#getUserInput();
+    this.#showPreview();
   }
 
   async #getUserInput() {
     this.#outputController.greetCustomer();
-    this.#expectedVisitingDate = await retryOnError(this.#inputController.inputExpectedDateOfVisit);
-    this.#menu = await retryOnError(this.#inputController.inputMenu);
+    await retryOnError(this.#inputController.inputExpectedDateOfVisit);
+    await retryOnError(this.#inputController.inputMenu);
+  }
+
+  #showPreview() {
+    this.#outputController.showTotalBenefit();
   }
 }
 

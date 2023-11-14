@@ -1,5 +1,6 @@
 /**
  * @typedef {import('../views/OutputView').OutputView} OutputView
+ * @typedef {import('../services/OutputService').OutputService} OutputService
  */
 
 class OutputController {
@@ -18,17 +19,15 @@ class OutputController {
   }
 
   showTotalBenefit() {
-    const totalBenefit = this.#outputService.getTotalBenefit();
-    this.#outputView.showTotalBenefit(totalBenefit);
+    this.#outputView.previewBenfit();
+    this.#outputView.printWithTitle('주문 메뉴', ...this.#outputService.getOrderedMenuList());
   }
 
   greetCustomer() {
     this.#outputView.greet();
   }
 
-  #showOrdered() {
-
-  }
+  // showOrdered() {}
 }
 
 export default OutputController;
