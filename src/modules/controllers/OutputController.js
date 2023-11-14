@@ -74,17 +74,17 @@ class OutputController {
 
   #showTotalPriceAfterDiscount() {
     const totalPriceAfterDiscount = this.#eventService.getTotalPriceAfterDiscount();
-    this.#outputView.printWithTitle('할인 후 총주문 금액', Format.money(totalPriceAfterDiscount));
+    this.#outputView.printWithTitle('할인 후 예상 결제 금액', Format.money(totalPriceAfterDiscount));
   }
 
   #showBadge() {
     const badge = this.#eventService.getBadge();
 
     if (!badge) {
-      this.#outputView.printEmptyWithTitle('12월 이벤트 뱃지');
+      this.#outputView.printEmptyWithTitle('12월 이벤트 배지');
       return;
     }
-    this.#outputView.printWithTitle('12월 이벤트 뱃지', badge);
+    this.#outputView.printWithTitle('12월 이벤트 배지', badge);
   }
 }
 
