@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 import Format from '../../utils/Format.js';
 
 /**

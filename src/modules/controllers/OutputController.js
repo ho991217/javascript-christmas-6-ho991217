@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 import Format from '../../utils/Format.js';
 /**
  * @typedef {import('../views/OutputView').OutputView} OutputView
@@ -74,7 +73,10 @@ class OutputController {
 
   #showTotalPriceAfterDiscount() {
     const totalPriceAfterDiscount = this.#eventService.getTotalPriceAfterDiscount();
-    this.#outputView.printWithTitle('할인 후 예상 결제 금액', Format.money(totalPriceAfterDiscount));
+    this.#outputView.printWithTitle(
+      '할인 후 예상 결제 금액',
+      Format.money(totalPriceAfterDiscount)
+    );
   }
 
   #showBadge() {

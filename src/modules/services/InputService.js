@@ -1,4 +1,3 @@
-/* eslint-disable operator-linebreak */
 import { ERROR_MESSAGE } from '../../constants/index.js';
 import { DATE_RANGE } from '../../constants/number.js';
 import InputError from '../../exceptions/InputError.js';
@@ -47,10 +46,7 @@ class InputService {
     if (Validator.isEmpty(input)) {
       throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
     }
-    if (
-      !Validator.isPositiveInteger(input) ||
-      !Validator.isInRange(input, DATE_RANGE)
-    ) {
+    if (!Validator.isPositiveInteger(input) || !Validator.isInRange(input, DATE_RANGE)) {
       throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
 
