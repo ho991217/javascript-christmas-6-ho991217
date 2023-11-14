@@ -1,4 +1,4 @@
-import ERROR_MESSAGE from '../../constants/error.js';
+import ERROR_MESSAGE from '../../constants/index.js';
 import { DATE_RANGE } from '../../constants/number.js';
 import InputError from '../../exceptions/InputError.js';
 

@@ -1,4 +1,4 @@
-import MENU from '../../constants/menu.js';
+import MENU from '../../constants/index.js';
 
 /**
  * @typedef {import('../../constants/menu').Menu} Menu
