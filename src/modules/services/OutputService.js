@@ -1,3 +1,4 @@
+import MESSAGE from '../../constants/message.js';
 import Format from '../../utils/Format.js';
 
 /**
@@ -30,8 +31,8 @@ class OutputService {
   }
 
   getOrderedMenuList() {
-    const orderedMenuList = Array.from(this.#orderModel.order.entries()).map(Format.ordered);
-    return orderedMenuList;
+    const orderedMenuList = Array.from(this.#orderModel.order.entries());
+    return orderedMenuList.map(([menu, count]) => Format.menuWithCount(menu, count));
   }
 
   getTotalPriceBeforeDiscount() {
@@ -42,6 +43,13 @@ class OutputService {
     );
 
     return totalPriceBeforeDiscount;
+  }
+
+  getGiftMenu() {
+    if (this.getTotalPriceBeforeDiscount() >= 120_000) {
+      return Format.menuWithCount(this.#menuModel.getGift().name, 1);
+    }
+    return MESSAGE.EMPTY_VALUE;
   }
 }
 

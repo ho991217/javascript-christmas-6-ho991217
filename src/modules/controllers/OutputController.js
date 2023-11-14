@@ -24,6 +24,7 @@ class OutputController {
 
     this.#showOrdered();
     this.#showTotalPriceBeforeDiscount();
+    this.#showGiftMenu();
   }
 
   greetCustomer() {
@@ -39,6 +40,10 @@ class OutputController {
       '할인 전 총주문 금액',
       Format.money(this.#outputService.getTotalPriceBeforeDiscount())
     );
+  }
+
+  #showGiftMenu() {
+    this.#outputView.printWithTitle('증정 메뉴', this.#outputService.getGiftMenu());
   }
 }
 

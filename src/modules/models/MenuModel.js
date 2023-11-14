@@ -8,6 +8,8 @@ import { MENU } from '../../constants/index.js';
  * @typedef {Object} MenuModel
  * @property {Array} menu
  * @property {function(): Array} getAll
+ * @property {function(string): number} getPrice
+ * @property {function(): Menu} getGift
  * @property {function(string): Menu} findByName
  * @property {function(string): boolean} isExist
  */
@@ -24,6 +26,10 @@ const MenuModel = {
 
   getPrice(name) {
     return this.menu.find((menu) => menu.name === name).price;
+  },
+
+  getGift() {
+    return this.menu.find((menu) => menu.name === '샴페인');
   },
 
   isExist(name) {

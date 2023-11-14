@@ -7,7 +7,7 @@ const Format = {
     return `${value.toLocaleString('ko-KR')}원`;
   },
 
-  ordered([name, count]) {
+  menuWithCount(name, count) {
     return `${name} ${count}개`;
   },
 };
