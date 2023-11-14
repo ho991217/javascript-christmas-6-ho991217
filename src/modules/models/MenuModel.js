@@ -22,8 +22,8 @@ const MenuModel = {
     return this.menu;
   },
 
-  findByName(name) {
-    return this.menu.find((menu) => menu.name === name);
+  getPrice(name) {
+    return this.menu.find((menu) => menu.name === name).price;
   },
 
   isExist(name) {

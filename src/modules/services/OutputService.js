@@ -1,3 +1,5 @@
+import Format from '../../utils/Format.js';
+
 /**
  * @typedef {import('../models/DateModel').DateModel} DateModel
  * @typedef {import('../models/OrderModel').OrderModel} OrderModel
@@ -28,10 +30,18 @@ class OutputService {
   }
 
   getOrderedMenuList() {
-    const orderedMenuList = Array.from(this.#orderModel.order.entries()).map(
-      ([menu, count]) => `${menu} - ${count}개`,
-    );
+    const orderedMenuList = Array.from(this.#orderModel.order.entries()).map(Format.ordered);
     return orderedMenuList;
+  }
+
+  getTotalPriceBeforeDiscount() {
+    const order = Array.from(this.#orderModel.getAll().entries());
+    const totalPriceBeforeDiscount = order.reduce(
+      (totalPrice, [menu, count]) => totalPrice + this.#menuModel.getPrice(menu) * count,
+      0
+    );
+
+    return totalPriceBeforeDiscount;
   }
 }
 
