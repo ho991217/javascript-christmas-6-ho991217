@@ -1,4 +1,4 @@
-import MESSAGE from '../../constants/message.js';
+/* eslint-disable comma-dangle */
 import Format from '../../utils/Format.js';
 
 /**
@@ -38,18 +38,11 @@ class OutputService {
   getTotalPriceBeforeDiscount() {
     const order = Array.from(this.#orderModel.getAll().entries());
     const totalPriceBeforeDiscount = order.reduce(
-      (totalPrice, [menu, count]) => totalPrice + this.#menuModel.getPrice(menu) * count,
+      (totalPrice, [menu, count]) => totalPrice + this.#menuModel.getPriceByName(menu) * count,
       0
     );
 
     return totalPriceBeforeDiscount;
-  }
-
-  getGiftMenu() {
-    if (this.getTotalPriceBeforeDiscount() >= 120_000) {
-      return Format.menuWithCount(this.#menuModel.getGift().name, 1);
-    }
-    return MESSAGE.EMPTY_VALUE;
   }
 }
 

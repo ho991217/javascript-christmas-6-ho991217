@@ -1,7 +1,9 @@
+/* eslint-disable comma-dangle */
 import Format from '../../utils/Format.js';
 /**
  * @typedef {import('../views/OutputView').OutputView} OutputView
  * @typedef {import('../services/OutputService').OutputService} OutputService
+ * @typedef {import('../services/EventService.js').EventService} EventService
  */
 
 class OutputController {
@@ -9,14 +11,18 @@ class OutputController {
 
   #outputView;
 
+  #eventService;
+
   /**
    *
    * @param {OutputService} outputService
    * @param {OutputView} outputView
+   * @param {EventService} eventService
    */
-  constructor(outputService, outputView) {
+  constructor(outputService, outputView, eventService) {
     this.#outputService = outputService;
     this.#outputView = outputView;
+    this.#eventService = eventService;
   }
 
   showTotalBenefit() {
@@ -24,7 +30,8 @@ class OutputController {
 
     this.#showOrdered();
     this.#showTotalPriceBeforeDiscount();
-    this.#showGiftMenu();
+    this.#showGift();
+    this.#showBenfitList();
   }
 
   greetCustomer() {
@@ -42,8 +49,12 @@ class OutputController {
     );
   }
 
-  #showGiftMenu() {
-    this.#outputView.printWithTitle('증정 메뉴', this.#outputService.getGiftMenu());
+  #showGift() {
+    this.#outputView.printWithTitle('증정 메뉴', this.#eventService.getGift());
+  }
+
+  #showBenfitList() {
+    this.#outputView.printWithTitle('혜택 내역', ...this.#eventService.getBenfitList());
   }
 }
 

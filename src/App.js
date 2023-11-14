@@ -1,8 +1,8 @@
 import retryOnError from './exceptions/retryOnError.js';
 import { InputView, OutputView } from './modules/views/index.js';
-import { DateModel, OrderModel, MenuModel } from './modules/models/index.js';
+import { DateModel, OrderModel, MenuModel, EventModel } from './modules/models/index.js';
 import { InputController, OutputController } from './modules/controllers/index.js';
-import { InputService, OutputService } from './modules/services/index.js';
+import { EventService, InputService, OutputService } from './modules/services/index.js';
 
 class App {
   #inputController;
@@ -12,9 +12,10 @@ class App {
   constructor() {
     const inputService = new InputService(DateModel, OrderModel, MenuModel);
     const outputService = new OutputService(DateModel, OrderModel, MenuModel);
+    const eventService = new EventService(DateModel, OrderModel, MenuModel, EventModel);
 
     this.#inputController = new InputController(inputService, InputView);
-    this.#outputController = new OutputController(outputService, OutputView);
+    this.#outputController = new OutputController(outputService, OutputView, eventService);
   }
 
   async run() {

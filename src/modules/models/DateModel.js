@@ -1,15 +1,14 @@
-import { REGEX } from '../../constants/index.js';
+import { YEAR } from '../../constants/number.js';
 
-/**
- * @typedef {import('../constants/number.js').Range} Range
- */
+const DECEMBER = 11;
 
 /**
  * @typedef {Object} DateModel
  * @property {number} expectVisitingDate 방문 예정일
- * @property {function(string): boolean} isPositiveInteger 양의 정수인지 확인하는 메소드
- * @property {function(string): boolean} isEmpty 빈 문자열인지 확인하는 메소드
- * @property {function(string, Range): boolean} isInRange 범위 내의 정수인지 확인하는 메소드
+ * @property {function(): number} getDay 요일을 반환하는 메소드
+ * @property {function(): boolean} hasStarMark 별표가 있는지 확인하는 메소드
+ * @property {function(): boolean} isWeekend 주말인지 확인하는 메소드
+ * @property {function(): boolean} isWeekday 주중인지 확인하는 메소드
  */
 
 /**
@@ -18,16 +17,25 @@ import { REGEX } from '../../constants/index.js';
 const DateModel = {
   expectVisitingDate: 0,
 
-  isPositiveInteger(value) {
-    return REGEX.POSITIVE_INTEGER.test(value);
+  getDate() {
+    return this.expectVisitingDate;
   },
 
-  isEmpty(value) {
-    return REGEX.EMPTY_STRING.test(value);
+  getDay() {
+    const date = new Date(YEAR, DECEMBER, this.expectVisitingDate);
+    return date.getDay();
   },
 
-  isInRange(value, { min, max }) {
-    return min <= value && value <= max;
+  hasStarMark() {
+    return this.getDay() === 0 || this.expectVisitingDate === 25;
+  },
+
+  isWeekend() {
+    return this.getDay() === 5 || this.getDay() === 6;
+  },
+
+  isWeekday() {
+    return !this.isWeekend();
   },
 };
 

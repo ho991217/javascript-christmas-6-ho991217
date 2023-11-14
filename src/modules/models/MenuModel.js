@@ -6,10 +6,10 @@ import { MENU } from '../../constants/index.js';
 
 /**
  * @typedef {Object} MenuModel
- * @property {Array} menu
+ * @property {Menu[]} menu
  * @property {function(): Array} getAll
- * @property {function(string): number} getPrice
- * @property {function(): Menu} getGift
+ * @property {function(string): number} getPriceByName
+ * @property {function(string): string} getCategoryByName
  * @property {function(string): Menu} findByName
  * @property {function(string): boolean} isExist
  */
@@ -24,12 +24,12 @@ const MenuModel = {
     return this.menu;
   },
 
-  getPrice(name) {
+  getPriceByName(name) {
     return this.menu.find((menu) => menu.name === name).price;
   },
 
-  getGift() {
-    return this.menu.find((menu) => menu.name === '샴페인');
+  getCategoryByName(name) {
+    return this.menu.find((menu) => menu.name === name).category;
   },
 
   isExist(name) {

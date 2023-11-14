@@ -26,7 +26,7 @@ class InputController {
    */
   inputExpectedDateOfVisit = async () => {
     const userInput = await this.#inputView.readDate();
-    this.#inputService.process(userInput, 'date');
+    this.#inputService.processDateInput(userInput);
   };
 
   /**
@@ -38,7 +38,7 @@ class InputController {
    */
   inputMenu = async () => {
     const userInput = await this.#inputView.readMenu();
-    this.#inputService.process(userInput, 'menu');
+    this.#inputService.processMenuInput(userInput);
   };
 }
 
