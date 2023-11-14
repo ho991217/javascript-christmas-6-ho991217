@@ -1,4 +1,3 @@
-import { CATEGORIES } from '../../constants/menu.js';
 import { GIFT_EVENT_CONDITION } from '../../constants/number.js';
 import DateModel from './DateModel.js';
 import MenuModel from './MenuModel.js';
@@ -14,14 +13,12 @@ const EventModel = {
     return 1_000 + (date - 1) * 100;
   },
 
-  getWeekdayDiscount() {
-    const dessertCount = OrderModel.countByCategory(CATEGORIES.desserts);
+  getWeekdayDiscount(dessertCount) {
     if (dessertCount === 0) return 0;
     return dessertCount * 2_023;
   },
 
-  getWeekendDiscount() {
-    const mainCount = OrderModel.countByCategory(CATEGORIES.main);
+  getWeekendDiscount(mainCount) {
     if (mainCount === 0) return 0;
     return mainCount * 2_023;
   },
@@ -31,8 +28,7 @@ const EventModel = {
     return 1_000;
   },
 
-  getGift() {
-    const totalPrice = OrderModel.getTotalPrice();
+  getGift(totalPrice) {
     if (totalPrice >= GIFT_EVENT_CONDITION) {
       return MenuModel.getPriceByName('샴페인');
     }

@@ -13,37 +13,39 @@ import MenuModel from './MenuModel.js';
 /**
  * @type {OrderModel}
  */
-const OrderModel = {
-  order: new Map(),
+class OrderModel {
+  constructor() {
+    this.order = new Map();
+  }
 
   add(name, count) {
     this.order.set(name, count);
-  },
+  }
 
   get(name) {
     return this.order.get(name);
-  },
+  }
 
   countByCategory(category) {
     return Array.from(this.order.entries())
       .filter(([menu]) => MenuModel.getCategoryByName(menu) === category)
       .reduce((prev, [, count]) => prev + count, 0);
-  },
+  }
 
   getTotalPrice() {
     return Array.from(this.order.entries()).reduce(
       (prev, [menu, count]) => prev + MenuModel.getPriceByName(menu) * count,
       0
     );
-  },
+  }
 
   getAll() {
     return this.order;
-  },
+  }
 
   isExist(name) {
     return this.order.has(name);
-  },
-};
+  }
+}
 
 export default OrderModel;

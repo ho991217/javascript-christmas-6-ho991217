@@ -1,3 +1,4 @@
+import { CATEGORIES } from '../../constants/menu.js';
 import Format from '../../utils/Format.js';
 
 /**
@@ -43,13 +44,20 @@ class EventService {
   }
 
   getBenfitList() {
-    if (this.#orderModel.getTotalPrice() < 10_000) return [];
+    const totalPrice = this.#orderModel.getTotalPrice();
+    if (totalPrice < 10_000) return [];
     return [
       ['크리스마스 디데이 할인', this.#eventModel.getChristmasDdayDiscount()],
-      ['평일 할인', this.#eventModel.getWeekdayDiscount()],
-      ['주말 할인', this.#eventModel.getWeekendDiscount()],
+      [
+        '평일 할인',
+        this.#eventModel.getWeekdayDiscount(this.#orderModel.countByCategory(CATEGORIES.desserts)),
+      ],
+      [
+        '주말 할인',
+        this.#eventModel.getWeekendDiscount(this.#orderModel.countByCategory(CATEGORIES.main)),
+      ],
       ['특별 할인', this.#eventModel.getSpecialDiscount()],
-      ['증정 이벤트', this.#eventModel.getGift()],
+      ['증정 이벤트', this.#eventModel.getGift(totalPrice)],
     ].filter(([, value]) => value !== 0);
   }
 
