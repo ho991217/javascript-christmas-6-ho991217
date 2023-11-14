@@ -63,10 +63,21 @@ class EventService {
 
   getTotalPriceAfterDiscount() {
     const totalPriceBeforeDiscount = this.#orderModel.getTotalPrice();
-    const totalBenfitPrice = this.getTotalBenfitPrice();
+    const totalBenfitPrice = this.getBenfitList()
+      .filter(([event]) => event !== '증정 이벤트')
+      .reduce((total, [, price]) => total + price, 0);
     const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenfitPrice;
 
     return totalPriceAfterDiscount;
+  }
+
+  getBadge() {
+    const totalPriceAfterDiscount = this.getTotalPriceAfterDiscount();
+
+    if (totalPriceAfterDiscount >= 20_000) return '산타';
+    if (totalPriceAfterDiscount >= 10_000) return '트리';
+    if (totalPriceAfterDiscount >= 5_000) return '별';
+    return null;
   }
 }
 

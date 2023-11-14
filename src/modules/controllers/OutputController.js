@@ -34,6 +34,7 @@ class OutputController {
     this.#showBenfitList();
     this.#showTotalBenfitPrice();
     this.#showTotalPriceAfterDiscount();
+    this.#showBadge();
   }
 
   greetCustomer() {
@@ -72,14 +73,18 @@ class OutputController {
   }
 
   #showTotalPriceAfterDiscount() {
-    const totalPriceBeforeDiscount = this.#outputService.getTotalPriceBeforeDiscount();
-    const totalBenfitPrice = this.#eventService
-      .getBenfitList()
-      .filter(([event]) => event !== '증정 이벤트')
-      .reduce((total, [, price]) => total + price, 0);
-    const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenfitPrice;
-
+    const totalPriceAfterDiscount = this.#eventService.getTotalPriceAfterDiscount();
     this.#outputView.printWithTitle('할인 후 총주문 금액', Format.money(totalPriceAfterDiscount));
+  }
+
+  #showBadge() {
+    const badge = this.#eventService.getBadge();
+
+    if (!badge) {
+      this.#outputView.printEmptyWithTitle('12월 이벤트 뱃지');
+      return;
+    }
+    this.#outputView.printWithTitle('12월 이벤트 뱃지', badge);
   }
 }
 
