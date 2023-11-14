@@ -11,7 +11,7 @@ const EventModel = {
   getChristmasDdayDiscount() {
     const date = DateModel.getDate();
     if (date > 25) return 0;
-    return 1_000 + date * 100;
+    return 1_000 + (date - 1) * 100;
   },
 
   getWeekdayDiscount() {
@@ -37,17 +37,6 @@ const EventModel = {
       return MenuModel.getPriceByName('샴페인');
     }
     return 0;
-  },
-
-  getAppliedEventList() {
-    if (OrderModel.getTotalPrice() < 10_000) return [];
-    return [
-      ['크리스마스 디데이 할인', this.getChristmasDdayDiscount()],
-      ['평일 할인', this.getWeekdayDiscount()],
-      ['주말 할인', this.getWeekendDiscount()],
-      ['특별 할인', this.getSpecialDiscount()],
-      ['증정 이벤트', this.getGift()],
-    ].filter(([, value]) => value !== 0);
   },
 };
 

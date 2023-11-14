@@ -7,6 +7,7 @@ import Format from '../../utils/Format.js';
  * @property {function} greet
  * @property {function} previewBenfit
  * @property {function(string, ...string)} printWithTitle
+ * @property {function(string)} printEmptyWithTitle
  * @property {function} printAndLineBreak
  */
 
@@ -26,6 +27,11 @@ const OutputView = {
     Console.print(Format.title(title));
     messages.slice(0, -1).forEach((message) => Console.print(message));
     this.printAndLineBreak(messages.at(-1));
+  },
+
+  printEmptyWithTitle(title) {
+    Console.print(Format.title(title));
+    this.printAndLineBreak(MESSAGE.EMPTY_VALUE);
   },
 
   printAndLineBreak(message) {

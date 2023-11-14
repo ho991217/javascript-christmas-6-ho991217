@@ -1,5 +1,4 @@
 /* eslint-disable comma-dangle */
-import { GIFT_EVENT_CONDITION } from '../../constants/number.js';
 import Format from '../../utils/Format.js';
 
 /**
@@ -45,12 +44,21 @@ class EventService {
   }
 
   getBenfitList() {
-    const formatted = this.#eventModel
-      .getAppliedEventList()
-      .map(([name, value]) => Format.benfit(name, value));
+    if (this.#orderModel.getTotalPrice() < 10_000) return [];
+    return [
+      ['크리스마스 디데이 할인', this.#eventModel.getChristmasDdayDiscount()],
+      ['평일 할인', this.#eventModel.getWeekdayDiscount()],
+      ['주말 할인', this.#eventModel.getWeekendDiscount()],
+      ['특별 할인', this.#eventModel.getSpecialDiscount()],
+      ['증정 이벤트', this.#eventModel.getGift()],
+    ].filter(([, value]) => value !== 0);
+  }
 
-    if (formatted.length === 0) return ['없음'];
-    return formatted;
+  getTotalBenfitPrice() {
+    const benfitList = this.getBenfitList();
+    const totalBenfitPrice = benfitList.reduce((total, [, price]) => total + price, 0);
+
+    return totalBenfitPrice;
   }
 }
 

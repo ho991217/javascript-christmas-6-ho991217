@@ -32,6 +32,7 @@ class OutputController {
     this.#showTotalPriceBeforeDiscount();
     this.#showGift();
     this.#showBenfitList();
+    this.#showTotalBenfitPrice();
   }
 
   greetCustomer() {
@@ -54,7 +55,19 @@ class OutputController {
   }
 
   #showBenfitList() {
-    this.#outputView.printWithTitle('혜택 내역', ...this.#eventService.getBenfitList());
+    const benfitList = this.#eventService.getBenfitList();
+    const formatted = benfitList.map(([name, price]) => Format.benfit(name, price));
+    if (formatted.length === 0) {
+      this.#outputView.printEmptyWithTitle('혜택 내역');
+      return;
+    }
+
+    this.#outputView.printWithTitle('혜택 내역', ...formatted);
+  }
+
+  #showTotalBenfitPrice() {
+    const totalBenfitPrice = this.#eventService.getTotalBenfitPrice();
+    this.#outputView.printWithTitle('총혜택 금액', Format.money(-totalBenfitPrice));
   }
 }
 

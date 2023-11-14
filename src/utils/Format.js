@@ -4,6 +4,7 @@ const Format = {
   },
 
   money(value) {
+    if (value === 0) return '0원';
     return `${value.toLocaleString('ko-KR')}원`;
   },
 
