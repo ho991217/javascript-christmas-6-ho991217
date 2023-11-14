@@ -1,11 +1,19 @@
+/* eslint-disable operator-linebreak */
 import { ERROR_MESSAGE } from '../../constants/index.js';
 import { DATE_RANGE } from '../../constants/number.js';
 import InputError from '../../exceptions/InputError.js';
+import Validator from '../../utils/Validator.js';
 
 /**
  * @typedef {import('../models/DateModel.js').DateModel} DateModel
  * @typedef {import('../models/OrderModel.js').OrderModel} OrderModel
  * @typedef {import('../models/MenuModel.js').MenuModel} MenuModel
+ */
+
+/**
+ * @typedef {Object} InputService
+ * @property {function(string): void} processDateInput
+ * @property {function(string): void} processMenuInput
  */
 
 class InputService {
@@ -27,30 +35,6 @@ class InputService {
   }
 
   /**
-   * 사용자의 입력을 검증하는 메소드
-   *
-   * @method
-   * @name process
-   * @param {string} input
-   * @param {'date' | 'menu'} type
-   * @returns {string}
-   */
-  process(input, type) {
-    if (this.#dateModel.isEmpty(input)) {
-      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
-    }
-
-    switch (type) {
-      case 'date':
-        return this.#processDateInput(input);
-      case 'menu':
-        return this.#processMenuInput(input);
-      default:
-        return '';
-    }
-  }
-
-  /**
    * 사용자로부터 입력받은 방문예정일을 검사하는 메소드
    *
    * @private
@@ -59,10 +43,13 @@ class InputService {
    * @param {string} input
    * @returns {string}
    */
-  #processDateInput(input) {
+  processDateInput(input) {
+    if (Validator.isEmpty(input)) {
+      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
+    }
     if (
-      !this.#dateModel.isPositiveInteger(input) ||
-      !this.#dateModel.isInRange(input, DATE_RANGE)
+      !Validator.isPositiveInteger(input) ||
+      !Validator.isInRange(input, DATE_RANGE)
     ) {
       throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
@@ -79,8 +66,11 @@ class InputService {
    * @param {string} input
    * @returns {string}
    */
-  #processMenuInput(input) {
-    if (!this.#orderModel.isTokenizable(input)) {
+  processMenuInput(input) {
+    if (Validator.isEmpty(input)) {
+      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
+    }
+    if (!Validator.isTokenizable(input)) {
       throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
     }
 
