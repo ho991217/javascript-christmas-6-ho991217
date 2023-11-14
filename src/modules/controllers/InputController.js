@@ -1,6 +1,6 @@
 /**
- * @typedef {import('./InputService').InputService} InputService
- * @typedef {import('./InputView').InputView} InputView
+ * @typedef {import('../services/InputService').InputService} InputService
+ * @typedef {import('../modules/view/InputView').InputView} InputView
  */
 
 class InputController {
@@ -26,7 +26,7 @@ class InputController {
    */
   inputExpectedDateOfVisit = async () => {
     const userInput = await this.#inputView.readDate();
-    const validDate = this.#inputService.validate(userInput, 'date');
+    const validDate = this.#inputService.process(userInput, 'date');
 
     return validDate;
   };
@@ -40,7 +40,7 @@ class InputController {
    */
   inputMenu = async () => {
     const userInput = await this.#inputView.readMenu();
-    const validMenu = this.#inputService.validate(userInput, 'menu');
+    const validMenu = this.#inputService.process(userInput, 'menu');
 
     return validMenu;
   };

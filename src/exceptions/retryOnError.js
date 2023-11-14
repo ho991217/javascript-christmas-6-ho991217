@@ -3,6 +3,9 @@ import CustomError from './CustomError.js';
 import ERROR_MESSAGE from '../constants/error.js';
 
 /**
+ * Custom 에러 혹은 그 상속자 에러가 발생했을때,
+ *
+ * retriesLeft회 까지 재시도하는 함수
  * @typedef {Function} RetryOnError
  * @type {RetryOnError}
  * @param {Function<T>} fn
@@ -14,6 +17,9 @@ async function retryOnError(fn, retriesLeft = 5) {
     const res = await fn();
     return res;
   } catch (error) {
+    if (!(error instanceof CustomError)) {
+      throw error;
+    }
     Console.print(error.message);
     if (retriesLeft) {
       return retryOnError(fn, retriesLeft - 1);
