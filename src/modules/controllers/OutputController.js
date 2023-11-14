@@ -17,8 +17,17 @@ class OutputController {
     this.#outputView = outputView;
   }
 
+  showTotalBenefit() {
+    const totalBenefit = this.#outputService.getTotalBenefit();
+    this.#outputView.showTotalBenefit(totalBenefit);
+  }
+
   greetCustomer() {
     this.#outputView.greet();
+  }
+
+  #showOrdered() {
+
   }
 }
 

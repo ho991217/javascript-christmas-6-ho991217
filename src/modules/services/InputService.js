@@ -67,7 +67,7 @@ class InputService {
       throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
 
-    return Number(input);
+    this.#dateModel.expectVisitingDate = Number(input);
   }
 
   /**
@@ -83,10 +83,9 @@ class InputService {
     if (!this.#orderModel.isTokenizable(input)) {
       throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
     }
+
     const tokenized = input.split(',');
     tokenized.forEach(this.#fromStringToMenu);
-
-    return this.#orderModel.getAll();
   }
 
   #fromStringToMenu = (value) => {
