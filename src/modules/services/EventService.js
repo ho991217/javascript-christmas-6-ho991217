@@ -1,22 +1,14 @@
+import EVENT from '../../constants/event.js';
 import { CATEGORIES } from '../../constants/menu.js';
+import { BADGE_CONDITION } from '../../constants/number.js';
 import Format from '../../utils/Format.js';
 
 /**
  * @typedef {import('../models/EventModel').EventModel} EventModel
  * @typedef {import('../models/OrderModel').OrderModel} OrderModel
- * @typedef {import('../models/MenuModel').MenuModel} MenuModel
  * @typedef {import('../models/DateModel').DateModel} DateModel
  */
 
-/**
- * @typedef {Object} EventService
- * @property {Function} getGift
- * @property {function(): {name: string, value: number}} getBenfitList
- */
-
-/**
- * @type {EventService}
- */
 class EventService {
   #dateModel;
 
@@ -35,12 +27,24 @@ class EventService {
     this.#eventModel = eventModel;
   }
 
+  /**
+   * 증정품을 반환하는 메소드
+   *
+   * @method
+   * @returns {'샴페인 1개' | '없음'}
+   */
   getGift() {
     const giftPrice = this.#eventModel.getGift();
     if (giftPrice > 0) return Format.menuWithCount('샴페인', 1);
     return '없음';
   }
 
+  /**
+   * 이벤트 종류와 금액을 반환하는 메소드
+   *
+   * @method
+   * @returns {Array<{name: string, value: number}>}
+   */
   getBenfitList() {
     const totalPrice = this.#orderModel.getTotalPrice();
     if (totalPrice < 10_000) return [];
@@ -53,6 +57,12 @@ class EventService {
     ].filter(({ value }) => value !== 0);
   }
 
+  /**
+   * 총 혜택 금액을 반환하는 메소드
+   *
+   * @method
+   * @returns {number}
+   */
   getTotalBenfitPrice() {
     const benfitList = this.getBenfitList();
     const totalBenfitPrice = benfitList.reduce((total, { value }) => total + value, 0);
@@ -60,6 +70,12 @@ class EventService {
     return totalBenfitPrice;
   }
 
+  /**
+   * 할인 적용 후 총 결제 금액을 반환하는 메소드
+   *
+   * @method
+   * @returns {number}
+   */
   getTotalPriceAfterDiscount() {
     const totalPriceBeforeDiscount = this.#orderModel.getTotalPrice();
     const totalBenfitPrice = this.getBenfitList()
@@ -70,12 +86,18 @@ class EventService {
     return totalPriceAfterDiscount;
   }
 
+  /**
+   * 배지를 반환하는 메소드
+   *
+   * @method
+   * @returns {'산타' | '트리' | '별' | null}
+   */
   getBadge() {
     const totalPriceAfterDiscount = this.getTotalPriceAfterDiscount();
 
-    if (totalPriceAfterDiscount >= 20_000) return '산타';
-    if (totalPriceAfterDiscount >= 10_000) return '트리';
-    if (totalPriceAfterDiscount >= 5_000) return '별';
+    if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.santa;
+    if (totalPriceAfterDiscount >= BADGE_CONDITION.tree) return EVENT.BADGE.tree;
+    if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.star;
     return null;
   }
 }

@@ -25,3 +25,9 @@ export const CHRISTMAS_D_DAY_EVENT_DATE = Object.freeze({
 export const YEAR = 2023;
 
 export const GIFT_EVENT_CONDITION = 120_000;
+
+export const BADGE_CONDITION = {
+  santa: 20_000,
+  tree: 10_000,
+  star: 5_000,
+};
