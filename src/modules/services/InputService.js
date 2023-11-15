@@ -71,6 +71,10 @@ class InputService {
     }
 
     const tokenized = input.split(',');
+    if (tokenized.length > 20) {
+      throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
+    }
+
     tokenized.forEach(this.#fromStringToMenu);
   }
 

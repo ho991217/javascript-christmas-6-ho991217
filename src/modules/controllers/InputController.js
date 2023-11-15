@@ -1,6 +1,6 @@
 /**
  * @typedef {import('../services/InputService').InputService} InputService
- * @typedef {import('../modules/view/InputView').InputView} InputView
+ * @typedef {import('../view/InputView').InputView} InputView
  */
 
 class InputController {
