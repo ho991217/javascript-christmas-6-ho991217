@@ -15,9 +15,6 @@ import MenuModel from './MenuModel.js';
  */
 class OrderModel {
   constructor() {
-    /**
-     * @type {Map}
-     */
     this.order = new Map();
   }
 
@@ -48,6 +45,10 @@ class OrderModel {
 
   getAll() {
     return this.order;
+  }
+
+  getNames() {
+    return Array.from(this.order.keys());
   }
 
   isExist(name) {

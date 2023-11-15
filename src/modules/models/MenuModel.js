@@ -7,10 +7,9 @@ import { MENU } from '../../constants/index.js';
 /**
  * @typedef {Object} MenuModel
  * @property {Menu[]} menu
- * @property {function(): Array} getAll
+ * @property {function(): Menu[]} getAll
  * @property {function(string): number} getPriceByName
  * @property {function(string): string} getCategoryByName
- * @property {function(string): Menu} findByName
  * @property {function(string): boolean} isExist
  */
 
