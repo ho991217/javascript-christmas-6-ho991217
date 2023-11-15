@@ -19,8 +19,8 @@ const OutputView = {
     Console.print(MESSAGE.GREETING);
   },
 
-  previewBenefit() {
-    this.printAndLineBreak(MESSAGE.PREVIEW_BENEFIT);
+  previewBenefit(date) {
+    this.printAndLineBreak(MESSAGE.PREVIEW_BENEFIT(date));
   },
 
   printWithTitle(title, ...messages) {
@@ -40,4 +40,4 @@ const OutputView = {
   },
 };
 
-export default OutputView;
+export default Object.freeze(OutputView);

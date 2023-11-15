@@ -25,7 +25,7 @@ class OutputController {
   }
 
   showTotalBenefit() {
-    this.#outputView.previewBenefit();
+    this.#outputView.previewBenefit(this.#eventService.getVisitDate());
 
     this.#showOrdered();
     this.#showTotalPriceBeforeDiscount();

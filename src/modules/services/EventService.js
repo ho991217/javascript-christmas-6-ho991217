@@ -30,6 +30,17 @@ class EventService {
   }
 
   /**
+   * 방문 예정 날짜를 출력하는 메소드
+   *
+   * @method
+   * @returns {string}
+   */
+  getVisitDate() {
+    const date = this.#dateModel.getDate();
+    return date;
+  }
+
+  /**
    * 증정품을 반환하는 메소드
    *
    * @method
