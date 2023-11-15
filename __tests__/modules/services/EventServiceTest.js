@@ -75,16 +75,16 @@ describe('EventService', () => {
 
       EventModel.getChristmasDdayDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.christmas_dday_discount, value: 2300 });
+        .mockReturnValue({ name: EVENT.NAME.christmasDdayDiscount, value: 2300 });
       EventModel.getWeekdayDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.weekday_discount, value: 4046 });
+        .mockReturnValue({ name: EVENT.NAME.weekdayDiscount, value: 4046 });
       EventModel.getWeekendDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.weekend_discount, value: 6069 });
+        .mockReturnValue({ name: EVENT.NAME.weekendDiscount, value: 6069 });
       EventModel.getSpecialDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.special_discount, value: 1000 });
+        .mockReturnValue({ name: EVENT.NAME.specialDiscount, value: 1000 });
       EventModel.getGift = jest.fn().mockReturnValue({ name: EVENT.NAME.gift, value: 12000 });
 
       // when

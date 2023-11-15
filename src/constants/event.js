@@ -1,8 +1,8 @@
 const NAME = Object.freeze({
-  christmas_dday_discount: '크리스마스 디데이 할인',
-  weekday_discount: '평일 할인',
-  weekend_discount: '주말 할인',
-  special_discount: '특별 할인',
+  christmasDdayDiscount: '크리스마스 디데이 할인',
+  weekdayDiscount: '평일 할인',
+  weekendDiscount: '주말 할인',
+  specialDiscount: '특별 할인',
   gift: '증정 이벤트',
 });
 

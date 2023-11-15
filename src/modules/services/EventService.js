@@ -5,6 +5,7 @@ import { BADGE_CONDITION } from '../../constants/number.js';
 import Format from '../../utils/Format.js';
 
 /**
+ * @typedef {import('../models/EventModel').EVENT} Event
  * @typedef {import('../models/EventModel').EventModel} EventModel
  * @typedef {import('../models/OrderModel').OrderModel} OrderModel
  * @typedef {import('../models/DateModel').DateModel} DateModel
@@ -46,7 +47,7 @@ class EventService {
    * 이벤트 종류와 금액을 반환하는 메소드
    *
    * @method
-   * @returns {Array<{name: string, value: number}>}
+   * @returns {Array<Event>}
    */
   getBenefitList() {
     const totalPrice = this.#orderModel.getTotalPrice();

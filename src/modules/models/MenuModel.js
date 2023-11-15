@@ -6,11 +6,11 @@ import { MENU } from '../../constants/index.js';
 
 /**
  * @typedef {Object} MenuModel
- * @property {Menu[]} menu
- * @property {function(): Menu[]} getAll
- * @property {function(string): number} getPriceByName
- * @property {function(string): string} getCategoryByName
- * @property {function(string): boolean} isExist
+ * @property {Menu[]} menu 메뉴 목록
+ * @property {function(): Menu[]} getAll 모든 메뉴를 반환한다.
+ * @property {function(string): number} getPriceByName 주어진 메뉴의 가격을 반환한다.
+ * @property {function(string): string} getCategoryByName 주어진 메뉴의 카테고리를 반환한다.
+ * @property {function(string): boolean} isExist 메뉴가 존재하는지 확인한다.
  */
 
 /**
