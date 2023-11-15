@@ -22,6 +22,10 @@ export const CHRISTMAS_D_DAY_EVENT_DATE = Object.freeze({
   max: 25,
 });
 
+/**
+ * @description 이벤트 년도
+ * 이 값만 변경하면 다른 년도의 이벤트를 계산할 수 있습니다.
+ */
 export const YEAR = 2023;
 
 export const GIFT_EVENT_CONDITION = 120_000;
