@@ -12,7 +12,7 @@ const Format = {
     return `${name} ${count}개`;
   },
 
-  benfit(name, value) {
+  benefit(name, value) {
     return `${name}: -${this.money(value)}`;
   },
 };

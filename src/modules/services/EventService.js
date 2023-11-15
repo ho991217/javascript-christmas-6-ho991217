@@ -1,5 +1,6 @@
 import EVENT from '../../constants/event.js';
 import { CATEGORIES } from '../../constants/menu.js';
+import MESSAGE from '../../constants/message.js';
 import { BADGE_CONDITION } from '../../constants/number.js';
 import Format from '../../utils/Format.js';
 
@@ -34,8 +35,10 @@ class EventService {
    * @returns {'샴페인 1개' | '없음'}
    */
   getGift() {
-    const giftPrice = this.#eventModel.getGift();
-    if (giftPrice > 0) return Format.menuWithCount('샴페인', 1);
+    const totalPrice = this.#orderModel.getTotalPrice();
+    const { value } = this.#eventModel.getGift(totalPrice);
+
+    if (value > 0) return Format.menuWithCount(EVENT.GIFT, 1);
     return '없음';
   }
 
@@ -45,7 +48,7 @@ class EventService {
    * @method
    * @returns {Array<{name: string, value: number}>}
    */
-  getBenfitList() {
+  getBenefitList() {
     const totalPrice = this.#orderModel.getTotalPrice();
     if (totalPrice < 10_000) return [];
     return [
@@ -63,11 +66,11 @@ class EventService {
    * @method
    * @returns {number}
    */
-  getTotalBenfitPrice() {
-    const benfitList = this.getBenfitList();
-    const totalBenfitPrice = benfitList.reduce((total, { value }) => total + value, 0);
+  getTotalBenefitPrice() {
+    const benefitList = this.getBenefitList();
+    const totalBenefitPrice = benefitList.reduce((total, { value }) => total + value, 0);
 
-    return totalBenfitPrice;
+    return totalBenefitPrice;
   }
 
   /**
@@ -78,10 +81,10 @@ class EventService {
    */
   getTotalPriceAfterDiscount() {
     const totalPriceBeforeDiscount = this.#orderModel.getTotalPrice();
-    const totalBenfitPrice = this.getBenfitList()
+    const totalBenefitPrice = this.getBenefitList()
       .filter(({ name }) => name !== '증정 이벤트')
       .reduce((total, { value }) => total + value, 0);
-    const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenfitPrice;
+    const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenefitPrice;
 
     return totalPriceAfterDiscount;
   }
@@ -90,7 +93,7 @@ class EventService {
    * 배지를 반환하는 메소드
    *
    * @method
-   * @returns {'산타' | '트리' | '별' | null}
+   * @returns {'산타' | '트리' | '별' | '없음'}
    */
   getBadge() {
     const totalPriceAfterDiscount = this.getTotalPriceAfterDiscount();
@@ -98,7 +101,7 @@ class EventService {
     if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.santa;
     if (totalPriceAfterDiscount >= BADGE_CONDITION.tree) return EVENT.BADGE.tree;
     if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.star;
-    return null;
+    return MESSAGE.EMPTY_VALUE;
   }
 }
 

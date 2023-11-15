@@ -25,13 +25,13 @@ class OutputController {
   }
 
   showTotalBenefit() {
-    this.#outputView.previewBenfit();
+    this.#outputView.previewBenefit();
 
     this.#showOrdered();
     this.#showTotalPriceBeforeDiscount();
     this.#showGift();
-    this.#showBenfitList();
-    this.#showTotalBenfitPrice();
+    this.#showBenefitList();
+    this.#showTotalBenefitPrice();
     this.#showTotalPriceAfterDiscount();
     this.#showBadge();
   }
@@ -55,9 +55,9 @@ class OutputController {
     this.#outputView.printWithTitle('증정 메뉴', this.#eventService.getGift());
   }
 
-  #showBenfitList() {
-    const benfitList = this.#eventService.getBenfitList();
-    const formatted = benfitList.map(({ name, value }) => Format.benfit(name, value));
+  #showBenefitList() {
+    const benefitList = this.#eventService.getBenefitList();
+    const formatted = benefitList.map(({ name, value }) => Format.benefit(name, value));
     if (formatted.length === 0) {
       this.#outputView.printEmptyWithTitle('혜택 내역');
       return;
@@ -66,26 +66,22 @@ class OutputController {
     this.#outputView.printWithTitle('혜택 내역', ...formatted);
   }
 
-  #showTotalBenfitPrice() {
-    const totalBenfitPrice = this.#eventService.getTotalBenfitPrice();
-    this.#outputView.printWithTitle('총혜택 금액', Format.money(-totalBenfitPrice));
+  #showTotalBenefitPrice() {
+    const totalBenefitPrice = this.#eventService.getTotalBenefitPrice();
+    this.#outputView.printWithTitle('총혜택 금액', Format.money(-totalBenefitPrice));
   }
 
   #showTotalPriceAfterDiscount() {
     const totalPriceAfterDiscount = this.#eventService.getTotalPriceAfterDiscount();
     this.#outputView.printWithTitle(
       '할인 후 예상 결제 금액',
-      Format.money(totalPriceAfterDiscount),
+      Format.money(totalPriceAfterDiscount)
     );
   }
 
   #showBadge() {
     const badge = this.#eventService.getBadge();
 
-    if (!badge) {
-      this.#outputView.printEmptyWithTitle('12월 이벤트 배지');
-      return;
-    }
     this.#outputView.printWithTitle('12월 이벤트 배지', badge);
   }
 }

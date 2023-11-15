@@ -12,9 +12,12 @@ const BADGE = Object.freeze({
   star: '별',
 });
 
+const GIFT = '샴페인';
+
 const EVENT = {
   NAME,
   BADGE,
+  GIFT,
 };
 
 export default EVENT;

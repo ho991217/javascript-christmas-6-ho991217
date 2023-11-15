@@ -5,7 +5,7 @@ import Format from '../../utils/Format.js';
 /**
  * @typedef {Object} OutputView
  * @property {function} greet
- * @property {function} previewBenfit
+ * @property {function} previewBenefit
  * @property {function(string, ...string)} printWithTitle
  * @property {function(string)} printEmptyWithTitle
  * @property {function} printAndLineBreak
@@ -19,7 +19,7 @@ const OutputView = {
     Console.print(MESSAGE.GREETING);
   },
 
-  previewBenfit() {
+  previewBenefit() {
     this.printAndLineBreak(MESSAGE.PREVIEW_BENEFIT);
   },
 

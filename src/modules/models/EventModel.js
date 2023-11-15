@@ -39,7 +39,7 @@ const EventModel = {
     if (totalPrice < GIFT_EVENT_CONDITION) {
       return result;
     }
-    return { ...result, value: MenuModel.getPriceByName('샴페인') };
+    return { ...result, value: MenuModel.getPriceByName(EVENT.GIFT) };
   },
 };
 
