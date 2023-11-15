@@ -1,7 +1,7 @@
 import EventService from '../../../src/modules/services/EventService';
 import { OrderModel, DateModel, EventModel } from '../../../src/modules/models';
 import Format from '../../../src/utils/Format';
-import { BADGE_CONDITION, GIFT_EVENT_CONDITION } from '../../../src/constants/number';
+import { GIFT_EVENT_CONDITION } from '../../../src/constants/number';
 import { CATEGORIES } from '../../../src/constants/menu';
 import { EVENT, MESSAGE } from '../../../src/constants';
 
@@ -132,16 +132,22 @@ describe('EventService', () => {
   });
 
   describe('getBadge', () => {
-    test('적절한 배지를 반환한다', () => {
+    test('구입 금액이 20,000원 이상이라면 `산타`, 10,000원 이상이라면 `트리`, 5,000원 이상이라면 `별`, 그 이하라면 `없음`을 반환한다', () => {
       // given
-      eventService.getTotalPriceAfterDiscount = jest.fn().mockReturnValue(BADGE_CONDITION.santa);
-      const expectedValue = EVENT.BADGE.santa;
+      const momey = [20_000, 10_000, 5_000, 4_999];
+      const { santa, tree, star } = EVENT.BADGE;
+      const { EMPTY_VALUE } = MESSAGE;
 
-      // when
-      const badge = eventService.getBadge();
+      momey.forEach((value, index) => {
+        eventService.getTotalPriceAfterDiscount = jest.fn().mockReturnValue(value);
+        const expectedValue = [santa, tree, star, EMPTY_VALUE][index];
 
-      // then
-      expect(badge).toBe(expectedValue);
+        // when
+        const badge = eventService.getBadge();
+
+        // then
+        expect(badge).toBe(expectedValue);
+      });
     });
   });
 });

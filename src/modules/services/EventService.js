@@ -101,7 +101,7 @@ class EventService {
 
     if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.santa;
     if (totalPriceAfterDiscount >= BADGE_CONDITION.tree) return EVENT.BADGE.tree;
-    if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.star;
+    if (totalPriceAfterDiscount >= BADGE_CONDITION.star) return EVENT.BADGE.star;
     return MESSAGE.EMPTY_VALUE;
   }
 }

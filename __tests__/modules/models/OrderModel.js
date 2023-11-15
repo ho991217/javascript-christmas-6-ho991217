@@ -1,14 +1,5 @@
 import OrderModel from '../../../src/modules/models/OrderModel';
-import MenuModel from '../../../src/modules/models/MenuModel';
 import MENU, { CATEGORIES } from '../../../src/constants/menu';
-
-// jest.mock(MenuModel, () => ({
-//   getPriceByName: jest.fn().mockImplementation((name) => {
-//     if (name === '크리스마스파스타') return 25_000;
-//     return 0;
-//   }),
-//   getCategoryByName: jest.fn().mockReturnValue(CATEGORIES.main_dishes),
-// }));
 
 describe('OrderModel', () => {
   let orderModel;

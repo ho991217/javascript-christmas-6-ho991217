@@ -14,10 +14,10 @@ const BADGE = Object.freeze({
 
 const GIFT = '샴페인';
 
-const EVENT = {
+const EVENT = Object.freeze({
   NAME,
   BADGE,
   GIFT,
-};
+});
 
 export default EVENT;
