@@ -50,7 +50,8 @@ class InputService {
    * @name processMenuInput
    * @param {string} input
    */
-  processMenuInput(input) {
+  processMenuInput(userInput) {
+    const input = userInput.trim();
     this.#validateMenuInput(input);
     const tokenized = input.split(',');
 
