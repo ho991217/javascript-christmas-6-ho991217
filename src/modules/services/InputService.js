@@ -43,13 +43,7 @@ class InputService {
    * @returns {string}
    */
   processDateInput(input) {
-    if (Validator.isEmpty(input)) {
-      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
-    }
-    if (!Validator.isPositiveInteger(input) || !Validator.isInRange(input, DATE_RANGE)) {
-      throw new InputError(ERROR_MESSAGE.INVALID_DATE);
-    }
-
+    this.#validateDateInput(input);
     this.#dateModel.setDate(Number(input));
   }
 
@@ -63,19 +57,16 @@ class InputService {
    * @returns {string}
    */
   processMenuInput(input) {
-    if (Validator.isEmpty(input)) {
-      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
-    }
-    if (!Validator.isTokenizable(input)) {
-      throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
-    }
-
+    this.#validateMenuInput(input);
     const tokenized = input.split(',');
-    if (tokenized.length > 20) {
-      throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
-    }
 
-    tokenized.forEach(this.#fromStringToMenu);
+    try {
+      tokenized.forEach(this.#fromStringToMenu);
+      if (this.#orderModel.getTotalAmount() > 20) throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
+    } catch (error) {
+      this.#orderModel.clear();
+      throw error;
+    }
   }
 
   #fromStringToMenu = (value) => {
@@ -87,6 +78,20 @@ class InputService {
 
     this.#orderModel.add(name, Number(count));
   };
+
+  #validateDateInput(input) {
+    if (Validator.isEmpty(input)) {
+      throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
+    }
+    if (!Validator.isPositiveInteger(input) || !Validator.isInRange(input, DATE_RANGE)) {
+      throw new InputError(ERROR_MESSAGE.INVALID_DATE);
+    }
+  }
+
+  #validateMenuInput(input) {
+    if (Validator.isEmpty(input)) throw new InputError(ERROR_MESSAGE.EMPTY_INPUT);
+    if (!Validator.isTokenizable(input)) throw new InputError(ERROR_MESSAGE.INVALID_ORDER);
+  }
 }
 
 export default InputService;

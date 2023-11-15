@@ -15,6 +15,9 @@ import MenuModel from './MenuModel.js';
  */
 class OrderModel {
   constructor() {
+    /**
+     * @type {Map}
+     */
     this.order = new Map();
   }
 
@@ -39,12 +42,20 @@ class OrderModel {
     );
   }
 
+  getTotalAmount() {
+    return Array.from(this.order.values()).reduce((prev, count) => prev + count, 0);
+  }
+
   getAll() {
     return this.order;
   }
 
   isExist(name) {
     return this.order.has(name);
+  }
+
+  clear() {
+    this.order.clear();
   }
 }
 
