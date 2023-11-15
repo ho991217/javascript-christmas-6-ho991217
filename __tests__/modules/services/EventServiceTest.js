@@ -60,39 +60,38 @@ describe('EventService', () => {
 
     test('적절한 이벤트 혜택들을 반환한다', () => {
       // given
-      orderModel.getTotalPrice = jest.fn().mockReturnValue(15000);
+      orderModel.getTotalPrice = jest.fn().mockReturnValue(145_000);
       orderModel.countByCategory = jest.fn((category) => {
-        if (category === CATEGORIES.desserts) return 2;
-        if (category === CATEGORIES.main) return 3;
+        if (category === CATEGORIES.desserts) return 1;
+        if (category === CATEGORIES.main) return 1;
         return 0;
       });
-      dateModel.getDate = jest.fn().mockReturnValue(24);
+      dateModel.getDate = jest.fn().mockReturnValue(3);
       dateModel.hasStarMark = jest.fn().mockReturnValue(true);
 
       EventModel.getChristmasDdayDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.christmasDdayDiscount, value: 2300 });
+        .mockReturnValue({ name: EVENT.NAME.christmasDdayDiscount, value: 1200 });
       EventModel.getWeekdayDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.weekdayDiscount, value: 4046 });
+        .mockReturnValue({ name: EVENT.NAME.weekdayDiscount, value: 2023 });
       EventModel.getWeekendDiscount = jest
         .fn()
-        .mockReturnValue({ name: EVENT.NAME.weekendDiscount, value: 6069 });
+        .mockReturnValue({ name: EVENT.NAME.weekendDiscount, value: 0 });
       EventModel.getSpecialDiscount = jest
         .fn()
         .mockReturnValue({ name: EVENT.NAME.specialDiscount, value: 1000 });
-      EventModel.getGift = jest.fn().mockReturnValue({ name: EVENT.NAME.gift, value: 12000 });
+      EventModel.getGift = jest.fn().mockReturnValue({ name: EVENT.NAME.gift, value: 25000 });
 
       // when
       const benefitList = eventService.getBenefitList();
 
       // then
       expect(benefitList).toEqual([
-        { name: '크리스마스 디데이 할인', value: 2300 },
-        { name: '평일 할인', value: 4046 },
-        { name: '주말 할인', value: 6069 },
+        { name: '크리스마스 디데이 할인', value: 1200 },
+        { name: '평일 할인', value: 2023 },
         { name: '특별 할인', value: 1000 },
-        { name: '증정 이벤트', value: 12000 },
+        { name: '증정 이벤트', value: 25000 },
       ]);
     });
   });
@@ -132,14 +131,14 @@ describe('EventService', () => {
   });
 
   describe('getBadge', () => {
-    test('구입 금액이 20,000원 이상이라면 `산타`, 10,000원 이상이라면 `트리`, 5,000원 이상이라면 `별`, 그 이하라면 `없음`을 반환한다', () => {
+    test('총 혜택 금액이 20,000원 이상이라면 `산타`, 10,000원 이상이라면 `트리`, 5,000원 이상이라면 `별`, 그 이하라면 `없음`을 반환한다', () => {
       // given
       const momey = [20_000, 10_000, 5_000, 4_999];
       const { santa, tree, star } = EVENT.BADGE;
       const { EMPTY_VALUE } = MESSAGE;
 
       momey.forEach((value, index) => {
-        eventService.getTotalPriceAfterDiscount = jest.fn().mockReturnValue(value);
+        eventService.getTotalBenefitPrice = jest.fn().mockReturnValue(value);
         const expectedValue = [santa, tree, star, EMPTY_VALUE][index];
 
         // when

@@ -97,7 +97,7 @@ class EventService {
    * @returns {'산타' | '트리' | '별' | '없음'}
    */
   getBadge() {
-    const totalPriceAfterDiscount = this.getTotalPriceAfterDiscount();
+    const totalPriceAfterDiscount = this.getTotalBenefitPrice();
 
     if (totalPriceAfterDiscount >= BADGE_CONDITION.santa) return EVENT.BADGE.santa;
     if (totalPriceAfterDiscount >= BADGE_CONDITION.tree) return EVENT.BADGE.tree;
