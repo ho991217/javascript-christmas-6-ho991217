@@ -1,6 +1,11 @@
 import retryOnError from './exceptions/retryOnError.js';
 import { InputView, OutputView } from './modules/views/index.js';
-import { DateModel, OrderModel, MenuModel, EventModel } from './modules/models/index.js';
+import {
+  DateModel,
+  OrderModel,
+  MenuModel,
+  EventModel,
+} from './modules/models/index.js';
 import { InputController, OutputController } from './modules/controllers/index.js';
 import { EventService, InputService, OutputService } from './modules/services/index.js';
 

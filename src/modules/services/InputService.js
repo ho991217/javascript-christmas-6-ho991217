@@ -97,8 +97,8 @@ class InputService {
     }
 
     if (
-      !this.#validator.isPositiveInteger(input) ||
-      !this.#validator.isInRange(input, DATE_RANGE)
+      !this.#validator.isPositiveInteger(input)
+      || !this.#validator.isInRange(input, DATE_RANGE)
     ) {
       throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
@@ -137,8 +137,8 @@ class InputService {
    */
   #validateOrders() {
     if (
-      this.#orderModel.getTotalAmount() > 20 ||
-      this.#orderModel
+      this.#orderModel.getTotalAmount() > 20
+      || this.#orderModel
         .getNames()
         .every((name) => this.#menuModel.getCategoryByName(name) === CATEGORIES.drinks)
     ) {
