@@ -63,6 +63,7 @@ describe('EventService', () => {
     });
 
     test('적절한 이벤트 혜택들을 반환한다', () => {
+      // given
       orderModel.getTotalPrice = jest.fn().mockReturnValue(15000);
       orderModel.countByCategory = jest.fn((category) => {
         if (category === CATEGORIES.desserts) return 2;
@@ -74,20 +75,28 @@ describe('EventService', () => {
 
       EventModel.getChristmasDdayDiscount = jest
         .fn()
-        .mockReturnValue({ name: '크리스마스 D-day 할인', value: 2300 });
-      EventModel.getWeekdayDiscount = jest.fn().mockReturnValue({ name: '주중 할인', value: 4046 });
-      EventModel.getWeekendDiscount = jest.fn().mockReturnValue({ name: '주말 할인', value: 6069 });
-      EventModel.getSpecialDiscount = jest.fn().mockReturnValue({ name: '특별 할인', value: 1000 });
-      EventModel.getGift = jest.fn().mockReturnValue({ name: '증정 이벤트', value: 5000 });
+        .mockReturnValue({ name: EVENT.NAME.christmas_dday_discount, value: 2300 });
+      EventModel.getWeekdayDiscount = jest
+        .fn()
+        .mockReturnValue({ name: EVENT.NAME.weekday_discount, value: 4046 });
+      EventModel.getWeekendDiscount = jest
+        .fn()
+        .mockReturnValue({ name: EVENT.NAME.weekend_discount, value: 6069 });
+      EventModel.getSpecialDiscount = jest
+        .fn()
+        .mockReturnValue({ name: EVENT.NAME.special_discount, value: 1000 });
+      EventModel.getGift = jest.fn().mockReturnValue({ name: EVENT.NAME.gift, value: 12000 });
 
+      // when
       const benefitList = eventService.getBenefitList();
 
+      // then
       expect(benefitList).toEqual([
-        { name: '크리스마스 D-day 할인', value: 2300 },
-        { name: '주중 할인', value: 4046 },
+        { name: '크리스마스 디데이 할인', value: 2300 },
+        { name: '평일 할인', value: 4046 },
         { name: '주말 할인', value: 6069 },
         { name: '특별 할인', value: 1000 },
-        { name: '증정 이벤트', value: 5000 },
+        { name: '증정 이벤트', value: 12000 },
       ]);
     });
   });

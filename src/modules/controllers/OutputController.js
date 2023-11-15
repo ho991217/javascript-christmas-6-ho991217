@@ -47,7 +47,7 @@ class OutputController {
   #showTotalPriceBeforeDiscount() {
     this.#outputView.printWithTitle(
       '할인 전 총주문 금액',
-      Format.money(this.#outputService.getTotalPriceBeforeDiscount())
+      Format.money(this.#outputService.getTotalPriceBeforeDiscount()),
     );
   }
 
@@ -75,7 +75,7 @@ class OutputController {
     const totalPriceAfterDiscount = this.#eventService.getTotalPriceAfterDiscount();
     this.#outputView.printWithTitle(
       '할인 후 예상 결제 금액',
-      Format.money(totalPriceAfterDiscount)
+      Format.money(totalPriceAfterDiscount),
     );
   }
 

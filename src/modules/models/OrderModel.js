@@ -35,7 +35,7 @@ class OrderModel {
   getTotalPrice() {
     return Array.from(this.order.entries()).reduce(
       (prev, [menu, count]) => prev + MenuModel.getPriceByName(menu) * count,
-      0
+      0,
     );
   }
 
