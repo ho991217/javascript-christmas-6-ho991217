@@ -2,10 +2,6 @@ import EventModel from '../../../src/modules/models/EventModel';
 import { EVENT, MENU } from '../../../src/constants';
 import { GIFT_EVENT_CONDITION } from '../../../src/constants/number';
 
-jest.mock('../../../src/modules/models', () => ({
-  getPriceByName: jest.fn().mockReturnValue(5000), // 샴페인의 가격 예시
-}));
-
 describe('EventModel', () => {
   describe('getChristmasDdayDiscount', () => {
     test('크리스마스 디데이 할인을 계산한다', () => {
@@ -13,6 +9,18 @@ describe('EventModel', () => {
       const date = 24;
       const discountPrice = 1000 + (date - 1) * 100;
       const expectedResult = { name: EVENT.NAME.christmasDdayDiscount, value: discountPrice };
+
+      // when
+      const discount = EventModel.getChristmasDdayDiscount(date);
+
+      // then
+      expect(discount).toEqual(expectedResult);
+    });
+
+    test('25일이 지났다면 할인이 적용되지 않는다', () => {
+      // given
+      const date = 26;
+      const expectedResult = { name: EVENT.NAME.christmasDdayDiscount, value: 0 };
 
       // when
       const discount = EventModel.getChristmasDdayDiscount(date);

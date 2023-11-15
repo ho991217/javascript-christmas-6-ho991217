@@ -6,10 +6,6 @@ import { CATEGORIES } from '../../../src/constants/menu';
 import { EVENT, MESSAGE } from '../../../src/constants';
 
 jest.mock('../../../src/utils/Format');
-jest.mock('../../../src/modules/models/MenuModel', () => ({
-  getPriceByName: jest.fn().mockReturnValue(5000), // 샴페인의 가격을 예시로 5000원으로 설정
-  getCategoryByName: jest.fn(),
-}));
 
 describe('EventService', () => {
   let dateModel, orderModel, eventService;
