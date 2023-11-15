@@ -11,8 +11,8 @@ import MenuModel from './MenuModel.js';
 /**
  * @typedef {Object} EventModel
  * @property {function(number): EVENT} getChristmasDdayDiscount 크리스마스 디데이 이벤트 이름과 할인 금액을 반환한다.
- * @property {function(number): EVENT} getWeekdayDiscount 평일 이벤트 이름과 할인 금액을 반환한다.
- * @property {function(number): EVENT} getWeekendDiscount 주말 이벤트 이름과 할인 금액을 반환한다.
+ * @property {function(boolean, number): EVENT} getWeekdayDiscount 평일 이벤트 이름과 할인 금액을 반환한다.
+ * @property {function(boolean, number): EVENT} getWeekendDiscount 주말 이벤트 이름과 할인 금액을 반환한다.
  * @property {function(boolean): EVENT} getSpecialDiscount 스페셜 이벤트 이름과 할인 금액을 반환한다.
  * @property {function(number): EVENT} getGift 증정 이벤트 이름과 증정품 가격을 반환한다.
  */
@@ -28,16 +28,16 @@ const EventModel = {
     return { ...result, value: 1_000 + (date - 1) * 100 };
   },
 
-  getWeekdayDiscount(dessertCount) {
+  getWeekdayDiscount(isWeekday, dessertCount) {
     const result = { name: EVENT.NAME.weekdayDiscount, value: 0 };
-    if (dessertCount === 0) return result;
+    if (!isWeekday || dessertCount === 0) return result;
 
     return { ...result, value: dessertCount * 2_023 };
   },
 
-  getWeekendDiscount(mainCount) {
+  getWeekendDiscount(isWeekend, mainCount) {
     const result = { name: EVENT.NAME.weekendDiscount, value: 0 };
-    if (mainCount === 0) return result;
+    if (!isWeekend || mainCount === 0) return result;
 
     return { ...result, value: mainCount * 2_023 };
   },

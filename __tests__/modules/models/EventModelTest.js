@@ -36,9 +36,10 @@ describe('EventModel', () => {
       const dessertCount = 2;
       const discountPrice = dessertCount * 2023;
       const expectedResult = { name: EVENT.NAME.weekdayDiscount, value: discountPrice };
+      const isWeekday = true;
 
       // when
-      const discount = EventModel.getWeekdayDiscount(dessertCount);
+      const discount = EventModel.getWeekdayDiscount(isWeekday, dessertCount);
 
       // then
       expect(discount).toEqual(expectedResult);
@@ -51,9 +52,10 @@ describe('EventModel', () => {
       const mainCount = 3;
       const discountPrice = mainCount * 2023;
       const expectedResult = { name: EVENT.NAME.weekendDiscount, value: discountPrice };
+      const isWeekend = true;
 
       // when
-      const discount = EventModel.getWeekendDiscount(mainCount);
+      const discount = EventModel.getWeekendDiscount(isWeekend, mainCount);
 
       // then
       expect(discount).toEqual(expectedResult);

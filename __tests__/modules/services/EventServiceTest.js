@@ -20,28 +20,28 @@ describe('EventService', () => {
   });
 
   describe('getGift', () => {
-    test('선물이 존재할 경우 해당 선물을 반환한다', () => {
+    test('선물이 존재할 경우 이벤트 이름과 금액을 반환한다.', () => {
       // given
       orderModel.getTotalPrice = jest.fn().mockReturnValue(GIFT_EVENT_CONDITION + 1);
-      const expectedValue = Format.menuWithCount(EVENT.GIFT, 1);
+      const expectedValue = { name: EVENT.NAME.gift, value: 25000 };
 
       // when
       const gift = eventService.getGift();
 
       // then
-      expect(gift).toBe(expectedValue);
+      expect(gift).toStrictEqual(expectedValue);
     });
 
-    test("선물이 존재하지 않을 경우 '없음'을 반환한다", () => {
+    test("선물이 존재하지 않을 경우 이벤트 이름과 금액 0을 반환한다.", () => {
       // given
       orderModel.getTotalPrice = jest.fn().mockReturnValue(GIFT_EVENT_CONDITION - 1);
-      const expectedValue = MESSAGE.EMPTY_VALUE;
+      const expectedValue = { name: EVENT.NAME.gift, value: 0 };
 
       // when
       const gift = eventService.getGift();
 
       // then
-      expect(gift).toBe(expectedValue);
+      expect(gift).toStrictEqual(expectedValue);
     });
   });
 

@@ -2,7 +2,6 @@ import EVENT from '../../constants/event.js';
 import { CATEGORIES } from '../../constants/menu.js';
 import MESSAGE from '../../constants/message.js';
 import { BADGE_CONDITION } from '../../constants/number.js';
-import Format from '../../utils/Format.js';
 
 /**
  * @typedef {import('../models/EventModel').EVENT} Event
@@ -41,20 +40,6 @@ class EventService {
   }
 
   /**
-   * 증정품을 반환하는 메소드
-   *
-   * @method
-   * @returns {'샴페인 1개' | '없음'}
-   */
-  getGift() {
-    const totalPrice = this.#orderModel.getTotalPrice();
-    const { value } = this.#eventModel.getGift(totalPrice);
-
-    if (value > 0) return Format.menuWithCount(EVENT.GIFT, 1);
-    return '없음';
-  }
-
-  /**
    * 이벤트 종류와 금액을 반환하는 메소드
    *
    * @method
@@ -63,13 +48,49 @@ class EventService {
   getBenefitList() {
     const totalPrice = this.#orderModel.getTotalPrice();
     if (totalPrice < 10_000) return [];
+
     return [
-      this.#eventModel.getChristmasDdayDiscount(this.#dateModel.getDate()),
-      this.#eventModel.getWeekdayDiscount(this.#orderModel.countByCategory(CATEGORIES.desserts)),
-      this.#eventModel.getWeekendDiscount(this.#orderModel.countByCategory(CATEGORIES.main)),
-      this.#eventModel.getSpecialDiscount(this.#dateModel.hasStarMark()),
-      this.#eventModel.getGift(totalPrice),
+      this.#getChristmasDdayDiscount(),
+      this.#getWeekdayDiscount(),
+      this.#getWeekendDiscount(),
+      this.#getSpecialDiscount(),
+      this.getGift(),
     ].filter(({ value }) => value !== 0);
+  }
+
+  #getChristmasDdayDiscount() {
+    const date = this.#dateModel.getDate();
+    return this.#eventModel.getChristmasDdayDiscount(date);
+  }
+
+  #getWeekdayDiscount() {
+    const isWeekday = this.#dateModel.isWeekday();
+    const dessertCount = this.#orderModel.countByCategory(CATEGORIES.desserts);
+    return this.#eventModel.getWeekdayDiscount(isWeekday, dessertCount);
+  }
+
+  #getWeekendDiscount() {
+    const isWeekend = this.#dateModel.isWeekend();
+    const mainCount = this.#orderModel.countByCategory(CATEGORIES.main_dishes);
+    return this.#eventModel.getWeekendDiscount(isWeekend, mainCount);
+  }
+
+  #getSpecialDiscount() {
+    const hasStarMark = this.#dateModel.hasStarMark();
+    return this.#eventModel.getSpecialDiscount(hasStarMark);
+  }
+
+  /**
+   * 증정품을 반환하는 메소드
+   *
+   * @method
+   * @returns {Event}
+   */
+  getGift() {
+    const totalPrice = this.#orderModel.getTotalPrice();
+    const gift = this.#eventModel.getGift(totalPrice);
+
+    return gift;
   }
 
   /**

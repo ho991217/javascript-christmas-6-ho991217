@@ -36,4 +36,4 @@ const MenuModel = {
   },
 };
 
-export default MenuModel;
+export default Object.freeze(MenuModel);

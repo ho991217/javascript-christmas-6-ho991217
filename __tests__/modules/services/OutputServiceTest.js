@@ -39,11 +39,15 @@ describe('OutputService', () => {
       // given
       orderModel.add(mockMenu[0].name, 2);
       orderModel.add(mockMenu[1].name, 1);
-      menuModel.getPriceByName = jest.fn().mockImplementation((menu) => {
-        if (menu === mockMenu[0].name) return mockMenu[0].price;
-        if (menu === mockMenu[1].name) return mockMenu[1].price;
-        return 0;
-      });
+
+      Object.assign(
+        menuModel.getPriceByName,
+        jest.fn().mockImplementation((menu) => {
+          if (menu === mockMenu[0].name) return mockMenu[0].price;
+          if (menu === mockMenu[1].name) return mockMenu[1].price;
+          return 0;
+        })
+      );
       const expectedValue = mockMenu[0].price * 2 + mockMenu[1].price * 1;
 
       // when

@@ -1,3 +1,4 @@
+import EVENT from '../../constants/event.js';
 import Format from '../../utils/Format.js';
 /**
  * @typedef {import('../views/OutputView').OutputView} OutputView
@@ -52,7 +53,13 @@ class OutputController {
   }
 
   #showGift() {
-    this.#outputView.printWithTitle('증정 메뉴', this.#eventService.getGift());
+    const { value } = this.#eventService.getGift();
+    if (value > 0) {
+      const gift = Format.menuWithCount(EVENT.GIFT, 1);
+      this.#outputView.printWithTitle('증정 메뉴', gift);
+      return;
+    }
+    this.#outputView.printEmptyWithTitle('증정 메뉴');
   }
 
   #showBenefitList() {
