@@ -12,19 +12,15 @@ import Format from '../../utils/Format.js';
  */
 
 class OutputService {
-  #dateModel;
-
   #orderModel;
 
   #menuModel;
 
   /**
-   * @param {DateModel} dateModel
    * @param {OrderModel} orderModel
    * @param {MenuModel} menuModel
    */
-  constructor(dateModel, orderModel, menuModel) {
-    this.#dateModel = dateModel;
+  constructor(orderModel, menuModel) {
     this.#orderModel = orderModel;
     this.#menuModel = menuModel;
   }

@@ -50,7 +50,7 @@ class InputService {
       throw new InputError(ERROR_MESSAGE.INVALID_DATE);
     }
 
-    this.#dateModel.expectVisitingDate = Number(input);
+    this.#dateModel.setDate(Number(input));
   }
 
   /**

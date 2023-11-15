@@ -1,15 +1,13 @@
 import EVENT_NAME from '../../constants/event.js';
 import { GIFT_EVENT_CONDITION } from '../../constants/number.js';
-import DateModel from './DateModel.js';
 import MenuModel from './MenuModel.js';
 
 /**
  * @type {EventModel}
  */
 const EventModel = {
-  getChristmasDdayDiscount() {
+  getChristmasDdayDiscount(date) {
     const result = { name: EVENT_NAME.CHRISTMAS_DDAY_DISCOUNT, value: 0 };
-    const date = DateModel.getDate();
     if (date > 25) return result;
 
     return { ...result, value: 1_000 + (date - 1) * 100 };
@@ -29,9 +27,9 @@ const EventModel = {
     return { ...result, value: mainCount * 2_023 };
   },
 
-  getSpecialDiscount() {
+  getSpecialDiscount(hasStarMark) {
     const result = { name: EVENT_NAME.SPECIAL_DISCOUNT, value: 0 };
-    if (!DateModel.hasStarMark()) return result;
+    if (!hasStarMark) return result;
 
     return { ...result, value: 1_000 };
   },

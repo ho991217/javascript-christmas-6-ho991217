@@ -11,10 +11,11 @@ class App {
 
   constructor() {
     const orderModel = new OrderModel();
+    const dateModel = new DateModel();
 
-    const inputService = new InputService(DateModel, orderModel, MenuModel);
-    const outputService = new OutputService(DateModel, orderModel, MenuModel);
-    const eventService = new EventService(orderModel, EventModel);
+    const inputService = new InputService(dateModel, orderModel, MenuModel);
+    const outputService = new OutputService(orderModel, MenuModel);
+    const eventService = new EventService(dateModel, orderModel, EventModel);
 
     this.#inputController = new InputController(inputService, InputView);
     this.#outputController = new OutputController(outputService, OutputView, eventService);

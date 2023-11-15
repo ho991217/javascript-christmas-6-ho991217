@@ -14,29 +14,35 @@ const DECEMBER = 11;
 /**
  * @type {DateModel}
  */
-const DateModel = {
-  expectVisitingDate: 0,
+class DateModel {
+  constructor() {
+    this.expectVisitingDate = 0;
+  }
+
+  setDate(expectVisitingDate) {
+    this.expectVisitingDate = expectVisitingDate;
+  }
 
   getDate() {
     return this.expectVisitingDate;
-  },
+  }
 
   getDay() {
     const date = new Date(YEAR, DECEMBER, this.expectVisitingDate);
     return date.getDay();
-  },
+  }
 
   hasStarMark() {
     return this.getDay() === 0 || this.expectVisitingDate === 25;
-  },
+  }
 
   isWeekend() {
     return this.getDay() === 5 || this.getDay() === 6;
-  },
+  }
 
   isWeekday() {
     return !this.isWeekend();
-  },
-};
+  }
+}
 
 export default DateModel;

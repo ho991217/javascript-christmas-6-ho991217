@@ -18,15 +18,19 @@ import Format from '../../utils/Format.js';
  * @type {EventService}
  */
 class EventService {
+  #dateModel;
+
   #orderModel;
 
   #eventModel;
 
   /**
+   * @param {DateModel} dateModel
    * @param {OrderModel} orderModel
    * @param {EventModel} eventModel
    */
-  constructor(orderModel, eventModel) {
+  constructor(dateModel, orderModel, eventModel) {
+    this.#dateModel = dateModel;
     this.#orderModel = orderModel;
     this.#eventModel = eventModel;
   }
@@ -41,10 +45,10 @@ class EventService {
     const totalPrice = this.#orderModel.getTotalPrice();
     if (totalPrice < 10_000) return [];
     return [
-      this.#eventModel.getChristmasDdayDiscount(),
+      this.#eventModel.getChristmasDdayDiscount(this.#dateModel.getDate()),
       this.#eventModel.getWeekdayDiscount(this.#orderModel.countByCategory(CATEGORIES.desserts)),
       this.#eventModel.getWeekendDiscount(this.#orderModel.countByCategory(CATEGORIES.main)),
-      this.#eventModel.getSpecialDiscount(),
+      this.#eventModel.getSpecialDiscount(this.#dateModel.hasStarMark()),
       this.#eventModel.getGift(totalPrice),
     ].filter(({ value }) => value !== 0);
   }
