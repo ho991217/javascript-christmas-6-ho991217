@@ -18,24 +18,16 @@ import Format from '../../utils/Format.js';
  * @type {EventService}
  */
 class EventService {
-  #dateModel;
-
   #orderModel;
-
-  #menuModel;
 
   #eventModel;
 
   /**
-   * @param {DateModel} dateModel
    * @param {OrderModel} orderModel
-   * @param {MenuModel} menuModel
    * @param {EventModel} eventModel
    */
-  constructor(dateModel, orderModel, menuModel, eventModel) {
-    this.#dateModel = dateModel;
+  constructor(orderModel, eventModel) {
     this.#orderModel = orderModel;
-    this.#menuModel = menuModel;
     this.#eventModel = eventModel;
   }
 

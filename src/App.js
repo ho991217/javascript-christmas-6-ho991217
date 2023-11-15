@@ -14,7 +14,7 @@ class App {
 
     const inputService = new InputService(DateModel, orderModel, MenuModel);
     const outputService = new OutputService(DateModel, orderModel, MenuModel);
-    const eventService = new EventService(DateModel, orderModel, MenuModel, EventModel);
+    const eventService = new EventService(orderModel, EventModel);
 
     this.#inputController = new InputController(inputService, InputView);
     this.#outputController = new OutputController(outputService, OutputView, eventService);
