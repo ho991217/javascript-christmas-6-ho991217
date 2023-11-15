@@ -10,6 +10,8 @@ import Format from '../../utils/Format.js';
 
 /**
  * @typedef {Object} EventService
+ * @property {Function} getGift
+ * @property {function(): {name: string, value: number}} getBenfitList
  */
 
 /**
@@ -47,23 +49,17 @@ class EventService {
     const totalPrice = this.#orderModel.getTotalPrice();
     if (totalPrice < 10_000) return [];
     return [
-      ['크리스마스 디데이 할인', this.#eventModel.getChristmasDdayDiscount()],
-      [
-        '평일 할인',
-        this.#eventModel.getWeekdayDiscount(this.#orderModel.countByCategory(CATEGORIES.desserts)),
-      ],
-      [
-        '주말 할인',
-        this.#eventModel.getWeekendDiscount(this.#orderModel.countByCategory(CATEGORIES.main)),
-      ],
-      ['특별 할인', this.#eventModel.getSpecialDiscount()],
-      ['증정 이벤트', this.#eventModel.getGift(totalPrice)],
-    ].filter(([, value]) => value !== 0);
+      this.#eventModel.getChristmasDdayDiscount(),
+      this.#eventModel.getWeekdayDiscount(this.#orderModel.countByCategory(CATEGORIES.desserts)),
+      this.#eventModel.getWeekendDiscount(this.#orderModel.countByCategory(CATEGORIES.main)),
+      this.#eventModel.getSpecialDiscount(),
+      this.#eventModel.getGift(totalPrice),
+    ].filter(({ value }) => value !== 0);
   }
 
   getTotalBenfitPrice() {
     const benfitList = this.getBenfitList();
-    const totalBenfitPrice = benfitList.reduce((total, [, price]) => total + price, 0);
+    const totalBenfitPrice = benfitList.reduce((total, { value }) => total + value, 0);
 
     return totalBenfitPrice;
   }
@@ -71,8 +67,8 @@ class EventService {
   getTotalPriceAfterDiscount() {
     const totalPriceBeforeDiscount = this.#orderModel.getTotalPrice();
     const totalBenfitPrice = this.getBenfitList()
-      .filter(([event]) => event !== '증정 이벤트')
-      .reduce((total, [, price]) => total + price, 0);
+      .filter(({ name }) => name !== '증정 이벤트')
+      .reduce((total, { value }) => total + value, 0);
     const totalPriceAfterDiscount = totalPriceBeforeDiscount - totalBenfitPrice;
 
     return totalPriceAfterDiscount;

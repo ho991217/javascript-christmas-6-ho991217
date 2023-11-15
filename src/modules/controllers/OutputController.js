@@ -57,7 +57,7 @@ class OutputController {
 
   #showBenfitList() {
     const benfitList = this.#eventService.getBenfitList();
-    const formatted = benfitList.map(([name, price]) => Format.benfit(name, price));
+    const formatted = benfitList.map(({ name, value }) => Format.benfit(name, value));
     if (formatted.length === 0) {
       this.#outputView.printEmptyWithTitle('혜택 내역');
       return;
