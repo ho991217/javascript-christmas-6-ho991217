@@ -28,7 +28,7 @@ class InputService {
     this.#dateModel = dateModel;
     this.#orderModel = orderModel;
     this.#menuModel = menuModel;
-    this.#validator = new Validator();
+    this.#validator = Validator;
   }
 
   /**
